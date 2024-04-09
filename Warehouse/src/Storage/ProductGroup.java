@@ -58,8 +58,7 @@ public class ProductGroup extends Product {
     }
 
     public ArrayList<Product> getListOfProducts() {
-        return listOfProducts;
-    }
+        return new ArrayList<>(listOfProducts);}
 
     @Override
     public String toString() {

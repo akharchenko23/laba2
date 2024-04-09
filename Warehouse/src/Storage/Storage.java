@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 public class Storage extends ProductGroup {
     private ArrayList<ProductGroup> listOfProductGroups;
+    private ArrayList<Product> allProducts;
     private String name;
 
 
@@ -17,9 +18,10 @@ public class Storage extends ProductGroup {
         this.name = name;
     }
 
-    public Storage(String name, ArrayList<ProductGroup> listOfProductGroups) {
+    public Storage(String name, ArrayList<ProductGroup> listOfProductGroups, ArrayList<Product> allProducts) {
         this.name = name;
         this.listOfProductGroups = listOfProductGroups;
+        this.allProducts = allProducts;
     }
 
     public void setName(String name) {
@@ -54,47 +56,69 @@ public class Storage extends ProductGroup {
         return null;
     }
 
-    public Product searchProductByName(String name) {
+    public List<Product> searchProductByName(String name) {
+        ArrayList<Product> omg = new ArrayList<>();
+
+        boolean found = false;
         for (int i = 0; i < name.length(); i++) {
             if (name.charAt(i) == '*' || name.charAt(i) == '?') {
-                //searchPattern(name);
-                name = name.replaceAll("\\*", ".*").replaceAll("\\?", ".{1}");
-
-                Pattern regex = Pattern.compile(name);
-                int count = 0;
-                count = listOfProductGroups.size();
-                //while (count > 0) {
-                    count--;
-                    for (ProductGroup productGroup : listOfProductGroups) {
-                        for (Product product : productGroup.getListOfProducts()) {
-                            Matcher matcher = regex.matcher(product.getName());
-                            if (matcher.matches()) {
-                                System.out.println(product);
-                                //matches.add(product.getName());
-                                return product;
-                                //треба змусити його проходити по всіх словах, а не знаходити перше і радіти
-                            }
-                        }
-                    }
-               // }
-
+                found = true;
             }
         }
+        if (found == true) {
+            name = name.replaceAll("\\*", ".*").replaceAll("\\?", ".{1}");
+
+            Pattern regex = Pattern.compile(name);
+            //System.out.println("скільки воно сюди приходить ");
+
+            // Шукаємо відповідності для кожного слова в списку
+            //todo переробити цикл
+            //for (ProductGroup productGroup : listOfProductGroups) {
+//            ArrayList<Product> allProducts = new ArrayList<>();
+//            for (ProductGroup productGroup : listOfProductGroups) {
+                // System.out.println("pr gr "+productGroup);
+           // }
+            //System.out.println(allProducts);
+            //for (ProductGroup productGroup : listOfProductGroups) {
+                for (Product product : allProducts) {
+                    Matcher matcher = regex.matcher(product.getName());
+                    if (matcher.matches()) {
+                        //System.out.println("поклало ");
+                        omg.add(product);
+                    }
+                }
+
+            //}
+            // }
+            return omg;
+        }
+
         for (ProductGroup productGroup : listOfProductGroups) {
-            // ArrayList<Product> list = productGroup.getListOfProducts();
             for (Product product : productGroup.getListOfProducts()) {
                 if (product.getName().equals(name)) {
-                    return product;
+                    omg.add(product);
+                    System.out.println("не все так погано");
                 }
             }
         }
+        return omg;
 
-        System.out.println("все погано");
-        return null;
+    }
+/*
+    public List<Product> searcherNormal() {
+        ArrayList<Product> omg = new ArrayList<>();
+        for (ProductGroup productGroup : listOfProductGroups) {
+            for (Product product : productGroup.getListOfProducts()) {
+                if (product.getName().equals(name)) {
+                    omg.add(product);
+                }
+            }
+        }
+        return omg;
     }
 
-    public Product searchPattern(String name) {
-        // List<String> matches = new ArrayList<>();
+    public List<Product> searchPattern(String name) {
+        List<Product> matches = new ArrayList<>();
         name = name.replaceAll("\\*", ".*").replaceAll("\\?", ".{1}");
 
         Pattern regex = Pattern.compile(name);
@@ -104,15 +128,17 @@ public class Storage extends ProductGroup {
             for (Product product : productGroup.getListOfProducts()) {
                 Matcher matcher = regex.matcher(product.getName());
                 if (matcher.matches()) {
-                    System.out.println("не все так погано");
-                    System.out.println(product);
-                    //matches.add(product.getName());
-                    return product;
+                    //System.out.println("не все так погано");
+                    //System.out.println(product);
+                    matches.add(product);
+                    // return product;
                 }
             }
         }
-        return null;
-    }
+        return matches;
 
+        //return null;
+    }
+*/
 
 }
