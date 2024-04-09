@@ -1,5 +1,7 @@
 package Storage;
 
+import Exceptions.Exceptions;
+
 import java.util.ArrayList;
 
 public class ProductGroup extends Product {
@@ -44,13 +46,40 @@ public class ProductGroup extends Product {
         return description;
     }
 
-    public void deleteProduct(Product product){
-        listOfProducts.remove(product);
+    public Product getProduct(Product product){
+        if(listOfProducts.contains(product)){
+            return product;
+        }
+        return null;
     }
 
-    public void addProduct(Product product){
+    public void setProduct(ArrayList<Product> listOfProducts){
+        this.listOfProducts = listOfProducts;
+    }
+
+    public ArrayList<Product> getListOfProducts() {
+        return listOfProducts;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    public  void deleteProduct(Product product){
+        if(listOfProducts.contains(product)) {
+            listOfProducts.remove(product);
+        }else{
+            //todo throw exception
+        }
+    }
+
+    public  void addProduct(Product product){
         listOfProducts.add(product);
     }
+
+
+
 
 
 

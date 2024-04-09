@@ -64,4 +64,7 @@ public class Product {
         return price;
     }
 
+    public String toString() {
+        return name + " " + description + " " + producer + " " + number + " " + price;
+    }
 }
