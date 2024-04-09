@@ -20,8 +20,8 @@ public class Main {
         storage.addProductGroup(productGroup1);
         storage.addProductGroup(productGroup2);
 
-       System.out.println(storage.searchForProduct(pr1));
-       System.out.println(storage.searchProductByName("name2"));
+       //System.out.println(storage.searchForProduct(pr1));
+       System.out.println(storage.searchProductByName("na*e"));
 
     }
 }
