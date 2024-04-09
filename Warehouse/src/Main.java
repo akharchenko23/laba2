@@ -1,6 +1,7 @@
 import Storage.Product;
 import Storage.ProductGroup;
 import Storage.Storage;
+import src.Interface.WareHouseWindow;
 
 import java.util.ArrayList;
 
@@ -23,5 +24,7 @@ public class Main {
        System.out.println(storage.searchForProduct(pr1));
        System.out.println(storage.searchProductByName("name2"));
 
+        WareHouseWindow start = new WareHouseWindow();
+        start.setVisible(1==1);
     }
 }
