@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Storage extends ProductGroup {
+public class Storage {
     private ArrayList<ProductGroup> listOfProductGroups;
    // private ArrayList<Product> allProducts;
     private String name;
@@ -39,7 +39,7 @@ public class Storage extends ProductGroup {
     }
 
     public ArrayList<ProductGroup> getListOfProductGroups() {
-        return new ArrayList<>(listOfProductGroups);
+        return listOfProductGroups;
     }
 /*
     public void setAllProducts(ArrayList<Product> allProducts) {
@@ -50,9 +50,9 @@ public class Storage extends ProductGroup {
         return allProducts;
     }
 */
-    @Override
+
     public String toString() {
-        return super.toString();
+        return name + " " + listOfProductGroups;
     }
 
     public void deleteProductGroup(ProductGroup productGroup) {

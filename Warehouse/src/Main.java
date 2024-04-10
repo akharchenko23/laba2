@@ -12,9 +12,9 @@ public class Main {
         Product pr1 = new Product("name", "desc", "pr", 1, 1);
         Product pr2 = new Product("nae", "desc2", "pr2", 2, 2);
         Product pr3 = new Product("namRe", "desc3", "pr3", 2, 2);
-        ProductGroup productGroup1 = new ProductGroup("namePG1", "descPG1", productArrayList);
-        ProductGroup productGroup2 = new ProductGroup("namePG2", "descPG2", productArrayList);
-        ProductGroup productGroup3 = new ProductGroup("namePG3", "descPG3", productArrayList);
+        ProductGroup productGroup1 = new ProductGroup("namePG1", "descPG1");
+        ProductGroup productGroup2 = new ProductGroup("namePG2", "descPG2");
+        ProductGroup productGroup3 = new ProductGroup("namePG3", "descPG3");
 
         Storage storage = new Storage("name", productGroupArrayList);
 
@@ -28,6 +28,10 @@ public class Main {
         productGroup1.addProduct(pr1);
         productGroup2.addProduct(pr2);
         productGroup3.addProduct(pr3);
+
+       // productGroup1.getListOfProducts().add(pr1);
+
+        System.out.println(productGroup1);
        // productGroup3.addProduct(pr1);
 
         storage.addProductGroup(productGroup1);

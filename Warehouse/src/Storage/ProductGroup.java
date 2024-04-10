@@ -4,7 +4,7 @@ import Exceptions.Exceptions;
 
 import java.util.ArrayList;
 
-public class ProductGroup extends Product {
+public class ProductGroup {
     /**
      * Група товарів містить наступні властивості - назва, опис.
      * <p>
@@ -16,7 +16,7 @@ public class ProductGroup extends Product {
     //ArrayList<Storage.Storage.Product> listOfProducts = new ArrayList<>();
     private String name;
     private String description;
-    private ArrayList<Product> listOfProducts;
+    public ArrayList<Product> listOfProducts = new ArrayList<>();
 
     public ProductGroup() {
     }
@@ -27,10 +27,9 @@ public class ProductGroup extends Product {
         this.name = name;
     }
 
-    public ProductGroup(String name, String description, ArrayList<Product> listOfProducts) {
+    public ProductGroup(String name, String description) {
         this.name = name;
         this.description = description;
-        this.listOfProducts = listOfProducts;
     }
 
     public void setName(String name) {
@@ -60,13 +59,17 @@ public class ProductGroup extends Product {
         this.listOfProducts = listOfProducts;
     }
 
-    public ArrayList<Product> getListOfProducts() {
-        return new ArrayList<>(listOfProducts);
+    public void setListOfProducts(ArrayList<Product> listOfProducts) {
+        this.listOfProducts = listOfProducts;
     }
 
-    @Override
+    public ArrayList<Product> getListOfProducts() {
+        return listOfProducts;
+    }
+
+
     public String toString() {
-        return super.toString();
+        return name + " " + description + " " + listOfProducts;
     }
 
     public void deleteProduct(Product product) {
@@ -78,16 +81,16 @@ public class ProductGroup extends Product {
     }
 
     public void addProduct(Product product) {
-        if (!listOfProducts.contains(product)) {
+
         //   for (Product pr : listOfProducts) {
 //                if (!pr.getName().equals(product.getName())) {
                     listOfProducts.add(product);
                 //}
             //}
-        } else {
-            System.out.println("не додавайте одне і те ж");
+      //  } else {
+           // System.out.println("не додавайте одне і те ж");
             //todo throw exception
-        }
+       // }
     }
 
 
