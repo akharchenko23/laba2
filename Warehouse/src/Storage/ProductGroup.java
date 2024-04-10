@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class ProductGroup extends Product {
     /**
      * Група товарів містить наступні властивості - назва, опис.
-     *
+     * <p>
      * Реалізувати додавання/редагування/видалення товару в групу товарів
-     *      (мається на увазі назва, опис, виробник, ціна за одиницю).
-     *
+     * (мається на увазі назва, опис, виробник, ціна за одиницю).
+     * <p>
      *      TODO редагування через сет гет в мейні вже буде
      */
     //ArrayList<Storage.Storage.Product> listOfProducts = new ArrayList<>();
@@ -18,7 +18,10 @@ public class ProductGroup extends Product {
     private String description;
     private ArrayList<Product> listOfProducts;
 
-    public ProductGroup(){};
+    public ProductGroup() {
+    }
+
+    ;
 
     public ProductGroup(String name) {
         this.name = name;
@@ -46,19 +49,19 @@ public class ProductGroup extends Product {
         return description;
     }
 
-    public Product getProduct(Product product){
-        if(listOfProducts.contains(product)){
-            return product;
-        }
-        return null;
+    public Product getProduct(Product product) {
+
+        return product;
+
+
     }
 
-    public void setProduct(ArrayList<Product> listOfProducts){
+    public void setProduct(ArrayList<Product> listOfProducts) {
         this.listOfProducts = listOfProducts;
     }
 
     public ArrayList<Product> getListOfProducts() {
-        return listOfProducts;
+        return new ArrayList<>(listOfProducts);
     }
 
     @Override
@@ -66,23 +69,26 @@ public class ProductGroup extends Product {
         return super.toString();
     }
 
-    public  void deleteProduct(Product product){
-        if(listOfProducts.contains(product)) {
+    public void deleteProduct(Product product) {
+        if (listOfProducts.contains(product)) {
             listOfProducts.remove(product);
-        }else{
+        } else {
             //todo throw exception
         }
     }
 
-    public  void addProduct(Product product){
-        listOfProducts.add(product);
+    public void addProduct(Product product) {
+        if (!listOfProducts.contains(product)) {
+        //   for (Product pr : listOfProducts) {
+//                if (!pr.getName().equals(product.getName())) {
+                    listOfProducts.add(product);
+                //}
+            //}
+        } else {
+            System.out.println("не додавайте одне і те ж");
+            //todo throw exception
+        }
     }
-
-
-
-
-
-
 
 
 }
