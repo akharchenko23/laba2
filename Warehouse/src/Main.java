@@ -16,13 +16,7 @@ public class Main {
         ProductGroup productGroup2 = new ProductGroup("namePG2", "descPG2");
         ProductGroup productGroup3 = new ProductGroup("namePG3", "descPG3");
 
-        Storage storage = new Storage("name", productGroupArrayList);
-
-//перероблю, але потім
-//        allProducts.add(pr1);
-//        allProducts.add(pr2);
-//        allProducts.add(pr3);
-
+        Storage storage = new Storage("name");
 
 
         productGroup1.addProduct(pr1);
@@ -37,6 +31,8 @@ public class Main {
         storage.addProductGroup(productGroup1);
         storage.addProductGroup(productGroup2);
         storage.addProductGroup(productGroup3);
+
+        System.out.println(storage + " storage");
 
 //System.out.println(allProducts);
        //System.out.println(storage.searchForProduct(pr1));

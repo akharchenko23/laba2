@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Storage {
-    private ArrayList<ProductGroup> listOfProductGroups;
+    private ArrayList<ProductGroup> listOfProductGroups = new ArrayList<>();
    // private ArrayList<Product> allProducts;
     private String name;
 
@@ -16,13 +16,11 @@ public class Storage {
     Storage() {
     }
 
-    Storage(String name) {
-        this.name = name;
-    }
 
-    public Storage(String name, ArrayList<ProductGroup> listOfProductGroups) {
+
+    public Storage(String name) {
         this.name = name;
-        this.listOfProductGroups = listOfProductGroups;
+        //this.listOfProductGroups = listOfProductGroups;
        // this.allProducts = allProducts;
     }
 
