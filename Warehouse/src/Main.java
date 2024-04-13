@@ -1,7 +1,7 @@
 import Storage.Product;
 import Storage.ProductGroup;
 import Storage.Storage;
-import src.Interface.WareHouseWindow;
+import Interface.WareHouseWindow;
 
 import java.util.ArrayList;
 
@@ -32,6 +32,9 @@ public class Main {
         storage.addProductGroup(productGroup1);
         storage.addProductGroup(productGroup2);
         storage.addProductGroup(productGroup3);
+        System.out.println(productGroup1);
+        System.out.println(productGroup2);
+        System.out.println(productGroup3);
 
         System.out.println(storage + " storage");
 
@@ -40,6 +43,6 @@ public class Main {
       System.out.println(storage.searchProductByName("na*e"));
 
         WareHouseWindow start = new WareHouseWindow();
-        start.setVisible(1==1);
+        start.setVisible(true);
     }
 }
