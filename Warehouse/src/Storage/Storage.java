@@ -1,5 +1,6 @@
 package Storage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -7,13 +8,13 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Storage {
+public class Storage implements Serializable {
     private ArrayList<ProductGroup> listOfProductGroups = new ArrayList<>();
    // private ArrayList<Product> allProducts;
     private String name;
 
 
-    Storage() {
+    public Storage() {
     }
 
 

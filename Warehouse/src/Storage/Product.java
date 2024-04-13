@@ -1,8 +1,9 @@
 package Storage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Product {
+public class Product implements Serializable {
 
     /**
     У кожного товару є наступні властивості - назва, опис, виробник, кількість на складі,

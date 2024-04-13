@@ -2,9 +2,10 @@ package Storage;
 
 import Exceptions.Exceptions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ProductGroup {
+public class ProductGroup implements Serializable {
     /**
      * Група товарів містить наступні властивості - назва, опис.
      * <p>
