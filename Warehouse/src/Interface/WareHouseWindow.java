@@ -20,25 +20,24 @@ public class WareHouseWindow extends JFrame {
     private static final String title = "Склад";
     private static final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
-    private static final LineBorder defaultBorder = new LineBorder(Color.black);
     private static final JPanel panel = new JPanel();
     private static final JPanel treePanel = new JPanel();
     private static final JPanel infoPanel = new JPanel();
     private static final JPanel consolePanel = new JPanel();
     private static final JMenuBar menuBar = new JMenuBar();
+
+    private static final LineBorder defaultBorder = new LineBorder(Color.black);
     private static final GridBagConstraints c = new GridBagConstraints();
 
     private static Storage storage;
 
     public WareHouseWindow() {
-        super();
+        super(title);
         this.setLocation(screen.width / 4, screen.height / 4);
         this.setSize(screen.width / 2, screen.height / 2);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        this.setTitle(title);
 
         getStorage();
-
 
         //if there is any unsaved progress asks the user to save it
         addWindowListener(new WindowAdapter() {
@@ -76,10 +75,9 @@ public class WareHouseWindow extends JFrame {
                 storage = (Storage) obj;
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Виникла проблема під час читання файлу збереження! Вийдіть з програми не зберігаючи, якщо не хочете пошкодити файл збереження.");
+            System.out.println("Виникла проблема під час читання файлу збереження! Вийдіть з програми не зберігаючись, якщо не хочете пошкодити файл збереження.");
             storage = new Storage();
         }
-
     }
 
     private void init() {
@@ -138,6 +136,14 @@ public class WareHouseWindow extends JFrame {
             }
         });
         JButton removeGroupButton = new JButton("Видалити групу");
+        removeGroupButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RemoveGroupDialog rgp = new RemoveGroupDialog(storage);
+                rgp.setVisible(true);
+            }
+        });
         JPanel miniPanel = new JPanel(new BorderLayout());
         miniPanel.add(createGroupButton, BorderLayout.EAST);
         miniPanel.add(removeGroupButton, BorderLayout.WEST);
@@ -191,7 +197,16 @@ public class WareHouseWindow extends JFrame {
     }
 
     private void createMenu() {
-        JMenu menu = new JMenu("Зберегти");
+        JMenu menu = new JMenu("Файл");
+        JMenuItem save = new JMenuItem("Зберегти");
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                save();
+            }
+        });
+
+        menu.add(save);
         menuBar.add(menu);
     }
 

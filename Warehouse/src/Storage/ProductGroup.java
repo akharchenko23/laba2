@@ -70,7 +70,7 @@ public class ProductGroup implements Serializable {
 
 
     public String toString() {
-        return name + " " + description + " " + listOfProducts;
+        return name;
     }
 
     public void deleteProduct(Product product) {
