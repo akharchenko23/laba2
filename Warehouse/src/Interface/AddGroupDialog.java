@@ -76,7 +76,7 @@ public class AddGroupDialog extends JFrame {
         JButton cancelButton = new JButton("Скасувати");
         buttonPanel.add(cancelButton);
         buttonPanel.add(new JPanel());
-        JButton okButton = new JButton("Oк");
+        JButton okButton = new JButton("Створити");
         buttonPanel.add(okButton);
         buttonPanel.add(new JPanel());
         c.gridy++;

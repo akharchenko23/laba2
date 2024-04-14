@@ -178,6 +178,7 @@ public class WareHouseWindow extends JFrame {
     private static void createTree() {
         JTree tree = getjTree();
         JScrollPane treeView = new JScrollPane(tree);
+        treeView.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         treePanel.add(treeView, BorderLayout.CENTER);
         for (int i = storage.getListOfProductGroups().size(); i > 0; i--) {
             tree.expandRow(i);
