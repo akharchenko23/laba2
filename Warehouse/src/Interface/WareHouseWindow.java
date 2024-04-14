@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.util.HashSet;
 
 /**
  * Creates a window with full functionality of a warehouse
@@ -66,7 +67,7 @@ public class WareHouseWindow extends JFrame {
 
     private void getStorage() {
         File saveFile = new File("warehouse.save");
-        try{
+        try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile));
             Object obj = ois.readObject();
             if (obj.getClass() == Storage.class) {
@@ -81,7 +82,7 @@ public class WareHouseWindow extends JFrame {
     private void init() {
         createMenu();
 
-        createTreePanel();
+        createTreePanel("*");
         createInfoPanel();
         createConsolePanel();
     }
@@ -108,7 +109,7 @@ public class WareHouseWindow extends JFrame {
         panel.add(infoPanel, c);
     }
 
-    private static void createTreePanel() {
+    private static void createTreePanel(String search) {
         c.gridy = 0;
         c.gridx = 0;
         c.gridwidth = 1;
@@ -119,7 +120,7 @@ public class WareHouseWindow extends JFrame {
         treePanel.setLayout(new BorderLayout());
         panel.add(treePanel, c);
 
-        createTree();
+        createTree(search);
         createTreeMenu();
         createGroupButtons();
     }
@@ -132,8 +133,13 @@ public class WareHouseWindow extends JFrame {
         });
         JButton removeGroupButton = new JButton("Видалити групу");
         removeGroupButton.addActionListener(e -> {
-            RemoveGroupDialog rgp = new RemoveGroupDialog();
-            rgp.setVisible(true);
+            if (!storage.getListOfProductGroups().isEmpty()) {
+                RemoveGroupDialog rgp = new RemoveGroupDialog();
+                rgp.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Нема що видаляти!", "Нема груп", JOptionPane.INFORMATION_MESSAGE);
+            }
+
         });
         JPanel miniPanel = new JPanel(new BorderLayout());
         miniPanel.add(createGroupButton, BorderLayout.EAST);
@@ -146,15 +152,24 @@ public class WareHouseWindow extends JFrame {
 
         JButton addButton = new JButton("+");
         addButton.addActionListener(e -> {
-            AddProductDialog apd = new AddProductDialog();
-            apd.setVisible(true);
+            if (!storage.getListOfProductGroups().isEmpty()) {
+                AddProductDialog apd = new AddProductDialog();
+                apd.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Створіть нову групу товарів, перед тим як додавати новий товар!", "Нема груп", JOptionPane.INFORMATION_MESSAGE);
+            }
         });
         JButton removeButton = new JButton("-");
         removeButton.addActionListener(e -> {
-            RemoveProductDialog rpd = new RemoveProductDialog();
-            rpd.setVisible(true);
+            if (!storage.getListOfProductGroups().isEmpty()) {
+                RemoveProductDialog rpd = new RemoveProductDialog();
+                rpd.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Склад повністю порожній!", "Нема груп", JOptionPane.INFORMATION_MESSAGE);
+            }
         });
         JButton searchButton = new JButton("Пошук");
+
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
         addButton.setFont(buttonFont);
         removeButton.setFont(buttonFont);
@@ -165,18 +180,29 @@ public class WareHouseWindow extends JFrame {
 
         JTextField search = new JTextField();
         treeMenu.add(search);
+
+        searchButton.addActionListener(e -> {
+            if(search.getText().isEmpty()) {
+                updateTreePanel();
+            } else {
+                treePanel.removeAll();
+                treePanel.revalidate();
+                treePanel.repaint();
+                createTreePanel(search.getText()+'*');
+            }
+        });
         treePanel.add(treeMenu, BorderLayout.NORTH);
     }
 
-    static void updateTreePanel(){
+    static void updateTreePanel() {
         treePanel.removeAll();
         treePanel.revalidate();
         treePanel.repaint();
-        createTreePanel();
+        createTreePanel("*");
     }
 
-    private static void createTree() {
-        JTree tree = getjTree();
+    private static void createTree(String search) {
+        JTree tree = getjTree(search);
         JScrollPane treeView = new JScrollPane(tree);
         treeView.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         treePanel.add(treeView, BorderLayout.CENTER);
@@ -185,17 +211,24 @@ public class WareHouseWindow extends JFrame {
         }
     }
 
-    private static JTree getjTree() {
+    private static JTree getjTree(String search) {
         DefaultMutableTreeNode top = new DefaultMutableTreeNode(title);
         DefaultMutableTreeNode group;
         DefaultMutableTreeNode element;
+
+        HashSet<Product> found = storage.searchProductByName(search);
 
         for (ProductGroup productGroup : storage.getListOfProductGroups()) {
             group = new DefaultMutableTreeNode(productGroup.getName());
             top.add(group);
             for (Product product : productGroup.getListOfProducts()) {
-                element = new DefaultMutableTreeNode(product.getName());
-                group.add(element);
+                if(found.contains(product)){
+                    element = new DefaultMutableTreeNode(product.getName());
+                    group.add(element);
+                }
+            }
+            if(top.getLastChild().isLeaf()){
+                top.remove(group);
             }
         }
         JTree tree = new JTree(top);

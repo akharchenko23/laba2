@@ -2,7 +2,6 @@ package Interface;
 
 import Storage.Product;
 import Storage.ProductGroup;
-
 import javax.swing.*;
 import java.awt.*;
 

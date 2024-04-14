@@ -26,18 +26,16 @@ public class RemoveGroupDialog extends JFrame {
         JButton deleteButton = new JButton("Видалити");
         deleteButton.addActionListener(e -> {
             ProductGroup deleteGroup = (ProductGroup) comboBox.getSelectedItem();
-            if (deleteGroup != null) {
-                int fate = JOptionPane.showConfirmDialog(null, "Групу і весь її вміст буде видалено!");
-                if (fate == JOptionPane.YES_OPTION) {
-                    WareHouseWindow.storage.deleteProductGroup(deleteGroup);
-                    comboBox.removeItem(deleteGroup);
-                    WareHouseWindow.updateTreePanel();
-                }
-            } else {
+            int fate = JOptionPane.showConfirmDialog(null, "Групу і весь її вміст буде видалено!");
+            if (fate == JOptionPane.YES_OPTION) {
+                WareHouseWindow.storage.deleteProductGroup(deleteGroup);
+                comboBox.removeItem(deleteGroup);
+                WareHouseWindow.updateTreePanel();
+            }
+            if (WareHouseWindow.storage.getListOfProductGroups().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Схоже що склад порожній...");
                 this.dispose();
             }
-
         });
         deleteButton.setBounds(screen.height / 40 - 5, screen.height / 80 * 4 + 2, screen.width / 8 - screen.height / 20, screen.height / 40);
         return deleteButton;

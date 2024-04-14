@@ -85,9 +85,7 @@ public class AddGroupDialog extends JFrame {
         c.gridy++;
         this.add(new JPanel(), c);
 
-        cancelButton.addActionListener(e ->{
-            this.dispose();
-        });
+        cancelButton.addActionListener(e -> this.dispose());
 
         okButton.addActionListener(e -> {
             String name = nameField.getText().trim();

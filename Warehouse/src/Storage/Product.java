@@ -65,6 +65,6 @@ public class Product implements Serializable {
     }
 
     public String toString() {
-        return name + " " + description + " " + producer + " " + number + " " + price;
+        return name;
     }
 }
