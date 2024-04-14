@@ -1,18 +1,15 @@
 package Interface;
 
 import Storage.*;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AddGroupDialog extends JFrame {
 
     private static final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
     private static final Font defaultFont = new Font("Arial", Font.PLAIN, 24);
 
-    public AddGroupDialog(Storage storage) {
+    public AddGroupDialog() {
         super("Створіть групу");
         this.setSize(screen.width / 4, screen.height / 4);
         this.setLocation(screen.width / 8 * 3, screen.height / 8 * 3);
@@ -88,28 +85,25 @@ public class AddGroupDialog extends JFrame {
         c.gridy++;
         this.add(new JPanel(), c);
 
-        okButton.addActionListener(new ActionListener() {
+        okButton.addActionListener(_ -> {
+            String name = nameField.getText().trim();
+            String desc = descField.getText().trim();
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String name = nameField.getText().trim();
-                String desc = descField.getText().trim();
+            if (name.isEmpty()) {
+                nameWarning.setText("Введіть ім'я!");
+            }
 
-                if (name.isEmpty()) {
-                    nameWarning.setText("Введіть ім'я!");
-                }
+            if (desc.isEmpty()) {
 
-                if (desc.isEmpty()) {
+                descWarning.setText("Введіть опис!");
+            }
 
-                    descWarning.setText("Введіть опис!");
-                }
-
-                if (!name.isEmpty() && !desc.isEmpty()) {
-                    nameWarning.setText("");
-                    descWarning.setText("");
-                    storage.addProductGroup(new ProductGroup(name, desc));
-                    AddGroupDialog.this.dispose();
-                }
+            if (!name.isEmpty() && !desc.isEmpty()) {
+                nameWarning.setText("");
+                descWarning.setText("");
+                WareHouseWindow.storage.addProductGroup(new ProductGroup(name, desc));
+                WareHouseWindow.updateTreePanel();
+                AddGroupDialog.this.dispose();
             }
         });
     }

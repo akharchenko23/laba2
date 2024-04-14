@@ -1,13 +1,9 @@
-import Storage.Product;
-import Storage.ProductGroup;
-import Storage.Storage;
 import Interface.WareHouseWindow;
 
-import java.util.ArrayList;
-
 public class Main {
+
     public static void main(String[] args) {
-        ArrayList<Product> productArrayList = new ArrayList<>();
+        /*ArrayList<Product> productArrayList = new ArrayList<>();
         ArrayList<ProductGroup> productGroupArrayList = new ArrayList<>();
        // ArrayList<Product> allProducts = new ArrayList<>();
         Product pr1 = new Product("name", "desc", "pr", 1, 1);
@@ -37,10 +33,9 @@ public class Main {
         System.out.println(productGroup3);
 
         System.out.println(storage + " storage");
-
-//System.out.println(allProducts);
-       //System.out.println(storage.searchForProduct(pr1));
-      System.out.println(storage.searchProductByName("na*e"));
+        //System.out.println(allProducts);
+        //System.out.println(storage.searchForProduct(pr1));
+        System.out.println(storage.searchProductByName("na*e"));*/
 
         WareHouseWindow start = new WareHouseWindow();
         start.setVisible(true);

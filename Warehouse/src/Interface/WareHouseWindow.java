@@ -6,8 +6,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
@@ -21,7 +19,7 @@ public class WareHouseWindow extends JFrame {
     private static final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
     private static final JPanel panel = new JPanel();
-    private static final JPanel treePanel = new JPanel();
+    static JPanel treePanel = new JPanel();
     private static final JPanel infoPanel = new JPanel();
     private static final JPanel consolePanel = new JPanel();
     private static final JMenuBar menuBar = new JMenuBar();
@@ -29,7 +27,7 @@ public class WareHouseWindow extends JFrame {
     private static final LineBorder defaultBorder = new LineBorder(Color.black);
     private static final GridBagConstraints c = new GridBagConstraints();
 
-    private static Storage storage;
+    static Storage storage;
 
     public WareHouseWindow() {
         super(title);
@@ -110,7 +108,7 @@ public class WareHouseWindow extends JFrame {
         panel.add(infoPanel, c);
     }
 
-    private void createTreePanel() {
+    private static void createTreePanel() {
         c.gridy = 0;
         c.gridx = 0;
         c.gridwidth = 1;
@@ -126,23 +124,16 @@ public class WareHouseWindow extends JFrame {
         createGroupButtons();
     }
 
-    private void createGroupButtons() {
+    private static void createGroupButtons() {
         JButton createGroupButton = new JButton("Додати групу");
-        createGroupButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddGroupDialog agp = new AddGroupDialog(storage);
-                agp.setVisible(true);
-            }
+        createGroupButton.addActionListener(_ -> {
+            AddGroupDialog agp = new AddGroupDialog();
+            agp.setVisible(true);
         });
         JButton removeGroupButton = new JButton("Видалити групу");
-        removeGroupButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                RemoveGroupDialog rgp = new RemoveGroupDialog(storage);
-                rgp.setVisible(true);
-            }
+        removeGroupButton.addActionListener(_ -> {
+            RemoveGroupDialog rgp = new RemoveGroupDialog();
+            rgp.setVisible(true);
         });
         JPanel miniPanel = new JPanel(new BorderLayout());
         miniPanel.add(createGroupButton, BorderLayout.EAST);
@@ -150,11 +141,18 @@ public class WareHouseWindow extends JFrame {
         treePanel.add(miniPanel, BorderLayout.SOUTH);
     }
 
-    private void createTreeMenu() {
+    private static void createTreeMenu() {
         JMenuBar treeMenu = new JMenuBar();
 
         JButton addButton = new JButton("+");
+        addButton.addActionListener(_ -> {
+            AddProductDialog apd = new AddProductDialog();
+            apd.setVisible(true);
+        });
         JButton removeButton = new JButton("-");
+        removeButton.addActionListener(_ -> {
+
+        });
         JButton searchButton = new JButton("Пошук");
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
         addButton.setFont(buttonFont);
@@ -169,7 +167,14 @@ public class WareHouseWindow extends JFrame {
         treePanel.add(treeMenu, BorderLayout.NORTH);
     }
 
-    private void createTree() {
+    static void updateTreePanel(){
+        treePanel.removeAll();
+        treePanel.revalidate();
+        treePanel.repaint();
+        createTreePanel();
+    }
+
+    private static void createTree() {
         JTree tree = getjTree();
         JScrollPane treeView = new JScrollPane(tree);
         treePanel.add(treeView, BorderLayout.CENTER);
@@ -199,12 +204,7 @@ public class WareHouseWindow extends JFrame {
     private void createMenu() {
         JMenu menu = new JMenu("Файл");
         JMenuItem save = new JMenuItem("Зберегти");
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                save();
-            }
-        });
+        save.addActionListener(_ -> save());
 
         menu.add(save);
         menuBar.add(menu);
