@@ -126,12 +126,12 @@ public class WareHouseWindow extends JFrame {
 
     private static void createGroupButtons() {
         JButton createGroupButton = new JButton("Додати групу");
-        createGroupButton.addActionListener(_ -> {
+        createGroupButton.addActionListener(e -> {
             AddGroupDialog agp = new AddGroupDialog();
             agp.setVisible(true);
         });
         JButton removeGroupButton = new JButton("Видалити групу");
-        removeGroupButton.addActionListener(_ -> {
+        removeGroupButton.addActionListener(e -> {
             RemoveGroupDialog rgp = new RemoveGroupDialog();
             rgp.setVisible(true);
         });
@@ -145,13 +145,14 @@ public class WareHouseWindow extends JFrame {
         JMenuBar treeMenu = new JMenuBar();
 
         JButton addButton = new JButton("+");
-        addButton.addActionListener(_ -> {
+        addButton.addActionListener(e -> {
             AddProductDialog apd = new AddProductDialog();
             apd.setVisible(true);
         });
         JButton removeButton = new JButton("-");
-        removeButton.addActionListener(_ -> {
-
+        removeButton.addActionListener(e -> {
+            RemoveProductDialog rpd = new RemoveProductDialog();
+            rpd.setVisible(true);
         });
         JButton searchButton = new JButton("Пошук");
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
@@ -204,7 +205,7 @@ public class WareHouseWindow extends JFrame {
     private void createMenu() {
         JMenu menu = new JMenu("Файл");
         JMenuItem save = new JMenuItem("Зберегти");
-        save.addActionListener(_ -> save());
+        save.addActionListener(e -> save());
 
         menu.add(save);
         menuBar.add(menu);

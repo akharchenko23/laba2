@@ -24,7 +24,7 @@ public class RemoveGroupDialog extends JFrame {
 
     private JButton getDelButton(JComboBox<ProductGroup> comboBox) {
         JButton deleteButton = new JButton("Видалити");
-        deleteButton.addActionListener(_ -> {
+        deleteButton.addActionListener(e -> {
             ProductGroup deleteGroup = (ProductGroup) comboBox.getSelectedItem();
             if (deleteGroup != null) {
                 int fate = JOptionPane.showConfirmDialog(null, "Групу і весь її вміст буде видалено!");
@@ -35,7 +35,7 @@ public class RemoveGroupDialog extends JFrame {
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Схоже що склад порожній...");
-                RemoveGroupDialog.this.dispose();
+                this.dispose();
             }
 
         });

@@ -85,7 +85,11 @@ public class AddGroupDialog extends JFrame {
         c.gridy++;
         this.add(new JPanel(), c);
 
-        okButton.addActionListener(_ -> {
+        cancelButton.addActionListener(e ->{
+            this.dispose();
+        });
+
+        okButton.addActionListener(e -> {
             String name = nameField.getText().trim();
             String desc = descField.getText().trim();
 
@@ -103,7 +107,7 @@ public class AddGroupDialog extends JFrame {
                 descWarning.setText("");
                 WareHouseWindow.storage.addProductGroup(new ProductGroup(name, desc));
                 WareHouseWindow.updateTreePanel();
-                AddGroupDialog.this.dispose();
+                this.dispose();
             }
         });
     }
