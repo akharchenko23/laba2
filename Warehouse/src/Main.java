@@ -1,4 +1,3 @@
-import Interface.WareHouseWindow;
 import Storage.Product;
 import Storage.ProductGroup;
 import Storage.Storage;
@@ -22,21 +21,23 @@ public class Main {
 
 
         productGroup1.addProduct(pr1);
-        //productGroup1.addProduct(pr2);
+        productGroup1.addProduct(pr2);
         productGroup2.addProduct(pr2);
         productGroup3.addProduct(pr3);
 
      storage.addProductGroup(productGroup1);
-     storage.addProductGroup(productGroup2);
      storage.addProductGroup(productGroup3);
+     storage.addProductGroup(productGroup2);
 
-
+for(ProductGroup productGroup: storage.getListOfProductGroups()){
+    System.out.println(productGroup);
+}
         for(Product pr: productGroup1.getListOfProducts()){
             System.out.println(pr);
         }
-        System.out.println(productGroup1.priceOfAllProductsInAGroup() + " " + storage.priceOfAllProductsOnStorage());
+     //   System.out.println(productGroup1.priceOfAllProductsInAGroup() + " " + storage.priceOfAllProductsOnStorage());
 
-        System.out.println(storage.productExistsInStorage(pr1));
+     //   System.out.println(storage.productExistsInStorageByName("namre"));
        // productGroup1.getListOfProducts().add(pr1);
 
         //System.out.println(productGroup1);

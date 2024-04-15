@@ -3,8 +3,6 @@ package Storage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,14 +51,24 @@ public class Storage implements Serializable {
         return name + " " + listOfProductGroups;
     }
 
-
-    public boolean productExistsInStorage(Product product){
+    public boolean productExistsInStorageByProduct(Product product) {
         for (ProductGroup productGroup : listOfProductGroups) {
             for (Product pr : productGroup.getListOfProducts()) {
                 //ім'я чекаєм
-                if(pr.getName().equals(product.getName())){
+                if (pr.getName().equals(product.getName())) {
                     return true;
 
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean productExistsInStorageByName(String name) {
+        for (ProductGroup productGroup : listOfProductGroups) {
+            for (Product pr : productGroup.getListOfProducts()) {
+                if (pr.getName().equals(name)) {
+                    return true;
                 }
             }
         }
@@ -86,7 +94,11 @@ public class Storage implements Serializable {
     }
 
     public void addProductGroup(ProductGroup productGroup) {
-        listOfProductGroups.add(productGroup);
+        if (!listOfProductGroups.contains(productGroup)) {
+            listOfProductGroups.add(productGroup);
+        } else {
+            //todo exception
+        }
         // allProducts.addAll(productGroup.getListOfProducts());
     }
 
@@ -131,7 +143,7 @@ public class Storage implements Serializable {
             for (Product product : productGroup.getListOfProducts()) {
                 if (product.getName().equals(name)) {
                     omg.add(product);
-                   // System.out.println("не все так погано");
+                    // System.out.println("не все так погано");
                 }
             }
         }
