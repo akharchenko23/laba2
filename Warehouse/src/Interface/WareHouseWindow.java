@@ -4,11 +4,18 @@ import Storage.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.util.Arrays;
 import java.util.HashSet;
 
 /**
@@ -29,12 +36,14 @@ public class WareHouseWindow extends JFrame {
     private static final GridBagConstraints c = new GridBagConstraints();
 
     static Storage storage;
+    static JConsole console = new JConsole();
 
     public WareHouseWindow() {
         super(title);
         this.setLocation(screen.width / 4, screen.height / 4);
         this.setSize(screen.width / 2, screen.height / 2);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setResizable(false);
 
         getStorage();
 
@@ -74,6 +83,7 @@ public class WareHouseWindow extends JFrame {
                 storage = (Storage) obj;
             }
         } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getClass());
             System.out.println("Виникла проблема під час читання файлу збереження! Вийдіть з програми не зберігаючись, якщо не хочете пошкодити файл збереження.");
             storage = new Storage();
         }
@@ -96,6 +106,9 @@ public class WareHouseWindow extends JFrame {
         c.weighty = 0.3;
         consolePanel.setBorder(defaultBorder);
         panel.add(consolePanel, c);
+
+        consolePanel.setLayout(new BorderLayout());
+        consolePanel.add(console, BorderLayout.CENTER);
     }
 
     private void createInfoPanel() {
@@ -107,6 +120,40 @@ public class WareHouseWindow extends JFrame {
         c.weighty = 0.7;
         infoPanel.setBorder(defaultBorder);
         panel.add(infoPanel, c);
+
+        infoPanel.setLayout(null);
+        createWarehouseInfo();
+    }
+
+    private void createWarehouseInfo() {
+        JTextArea name = new JTextArea(storage.getName());
+        name.setFont(new Font("Arial", Font.BOLD, 34));
+        name.setBounds(10, 10, 600, 45);
+        name.setBackground(Color.LIGHT_GRAY);
+        infoPanel.add(name);
+
+        JLabel value = new JLabel("Загальна вартість товару: " + storage.priceOfAllProductsOnStorage() + " грн.");
+        value.setFont(new Font("Arial", Font.PLAIN, 24));
+        value.setBounds(10, 60, 600, 30);
+        infoPanel.add(value);
+
+        int numOfProds = 0;
+        for (ProductGroup pg : storage.getListOfProductGroups()) {
+            numOfProds += pg.getListOfProducts().size();
+        }
+        String[][] items = new String[numOfProds][6];
+        int i = 0;
+        for(ProductGroup pg : storage.getListOfProductGroups()) {
+            for(String[] smth : pg.getProductsAsString()){
+                items[i] = smth;
+                i++;
+            }
+        }
+        String[] categories = {"Товар", "Виробник", "Опис", "Група", "К-ть", "Ціна"};
+        JTable table = new JTable(items, categories);
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setBounds(10, 100, 600, 200);
+        infoPanel.add(scroll);
     }
 
     private static void createTreePanel(String search) {
@@ -182,13 +229,13 @@ public class WareHouseWindow extends JFrame {
         treeMenu.add(search);
 
         searchButton.addActionListener(e -> {
-            if(search.getText().isEmpty()) {
+            if (search.getText().isEmpty()) {
                 updateTreePanel();
             } else {
                 treePanel.removeAll();
                 treePanel.revalidate();
                 treePanel.repaint();
-                createTreePanel(search.getText()+'*');
+                createTreePanel(search.getText() + '*');
             }
         });
         treePanel.add(treeMenu, BorderLayout.NORTH);
@@ -209,10 +256,17 @@ public class WareHouseWindow extends JFrame {
         for (int i = storage.getListOfProductGroups().size(); i > 0; i--) {
             tree.expandRow(i);
         }
+        tree.addTreeSelectionListener(new TreeSelectionListener() {
+
+            @Override
+            public void valueChanged(TreeSelectionEvent e) {
+
+            }
+        });
     }
 
     private static JTree getjTree(String search) {
-        DefaultMutableTreeNode top = new DefaultMutableTreeNode(title);
+        DefaultMutableTreeNode top = new DefaultMutableTreeNode(storage.getName());
         DefaultMutableTreeNode group;
         DefaultMutableTreeNode element;
 
@@ -222,12 +276,12 @@ public class WareHouseWindow extends JFrame {
             group = new DefaultMutableTreeNode(productGroup.getName());
             top.add(group);
             for (Product product : productGroup.getListOfProducts()) {
-                if(found.contains(product)){
+                if (found.contains(product)) {
                     element = new DefaultMutableTreeNode(product.getName());
                     group.add(element);
                 }
             }
-            if(top.getLastChild().isLeaf()){
+            if (top.getLastChild().isLeaf() && !search.equals("*")) {
                 top.remove(group);
             }
         }

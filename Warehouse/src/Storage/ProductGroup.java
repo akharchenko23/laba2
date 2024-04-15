@@ -120,5 +120,30 @@ public class ProductGroup implements Serializable {
        // }
     }
 
+    /**
+     * Це мені треба для інтерфейсу. Специфічна фігня
+     * @return Штука для таблиці
+     */
+    public String[][] getProductsAsString(){
+        ArrayList<ArrayList<String>> res = new ArrayList<>();
+        for(Product product : listOfProducts){
+            ArrayList<String> row = new ArrayList<>();
+            row.add(product.getName());
+            row.add(product.getDescription());
+            row.add(product.getProducer());
+            row.add(this.name);
+            row.add(String.valueOf(product.getNumber()));
+            row.add(Double.toString(product.getPrice()));
+            res.add(row);
+        }
+        String[][] actualRes = new String[res.size()][6];
+        int i = 0;
+        for(ArrayList<String> temp : res){
+            actualRes[i] = temp.toArray(new String[0]);
+            i++;
+        }
+        return actualRes;
+    }
+
 
 }

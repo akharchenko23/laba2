@@ -61,14 +61,11 @@ public class RemoveProductDialog extends JFrame {
             } else {
                 int fate = JOptionPane.showConfirmDialog(null, "Цей товар буде видалено!");
                 if (fate == JOptionPane.YES_OPTION) {
-                    Product prod = (Product)RemoveProductDialog.prodBox.getSelectedItem();
-                   // try {
-                        selectedGroup.deleteProduct(prod);
-                   // } catch (ProductNotFoundException ex) {
-                      //  throw new RuntimeException(ex);
-                  //  }
+                    Product prod = (Product) RemoveProductDialog.prodBox.getSelectedItem();
+                    selectedGroup.deleteProduct(prod);
                     RemoveProductDialog.prodBox.removeItem(prod);
                     WareHouseWindow.updateTreePanel();
+                    WareHouseWindow.console.productBought(prod,prod.getNumber());
                 }
             }
 

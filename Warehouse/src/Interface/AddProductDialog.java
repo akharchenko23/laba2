@@ -137,13 +137,19 @@ public class AddProductDialog extends JFrame {
                 prod.setForeground(Color.black);
             }
 
-            if(!productDesc.isEmpty() && !productProd.isEmpty() && productName.matches("[A-Za-zА-Яа-яІіЇїҐґЄє_ 0-9-]+")){
-                if (productGroup != null) {
-                    productGroup.addProduct(new Product(productName,productDesc,productProd, productNumber, productValue));
-                }
+            if(WareHouseWindow.storage.productExistsInStorageByName(productName)){
+                nameWarning.setText("Товар з такою назвою вже існує!");
+                nameWarning.setForeground(Color.RED);
+            }
 
-                WareHouseWindow.updateTreePanel();
-                this.dispose();
+            if(!productDesc.isEmpty() && !productProd.isEmpty() && !WareHouseWindow.storage.productExistsInStorageByName(productName) && productName.matches("[A-Za-zА-Яа-яІіЇїҐґЄє_ 0-9-]+")){
+                if (productGroup != null) {
+                    Product product = new Product(productName,productDesc,productProd, productNumber, productValue);
+                    productGroup.addProduct(product);
+                    WareHouseWindow.updateTreePanel();
+                    WareHouseWindow.console.productAdded(product, productNumber);
+                    this.dispose();
+                }
             }
         });
         okButton.setBounds(width / 2 + 10, 210, 200, 30);

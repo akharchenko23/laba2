@@ -12,56 +12,65 @@ import java.awt.*;
  */
 public class JConsole extends JScrollPane {
 
-/*
-    public static void createAndShowGUI() {
-
-
-        final JFrame frame = new JFrame("це вікно для тестування, в лабі воно зайве");
-
-        frame.setSize(500, 300);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // set flow layout for the frame
-        frame.getContentPane().setLayout(new FlowLayout());
-        JScrollPane scrollPane = getScrollPane();
-        frame.add(scrollPane);
-
-        //приклад застосування !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        Product pr1 = new Product("nae", "desc", "pr", 3, 1);
-        productAdded(pr1, 5);
-        productBought(pr1, 2);
-
-        frame.pack();
-        frame.setVisible(true);
-
+    public JConsole() {
+        super();
+        this.setViewportView(textArea);
+        this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        textArea.setFont(new Font("Arial", Font.PLAIN, 20));
+        textArea.setEditable(false);
     }
-*/
-    private  JTextArea textArea = new JTextArea(10, 40); // Поле класу для JTextArea
-    private  JScrollPane scrollableTextArea = new JScrollPane(textArea);
 
-    public  void productAdded(Product product, int numberAdded) {
+    /*
+        public static void createAndShowGUI() {
+
+
+            final JFrame frame = new JFrame("це вікно для тестування, в лабі воно зайве");
+
+            frame.setSize(500, 300);
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            // set flow layout for the frame
+            frame.getContentPane().setLayout(new FlowLayout());
+            JScrollPane scrollPane = getScrollPane();
+            frame.add(scrollPane);
+
+            //приклад застосування !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            Product pr1 = new Product("nae", "desc", "pr", 3, 1);
+            productAdded(pr1, 5);
+            productBought(pr1, 2);
+
+            frame.pack();
+            frame.setVisible(true);
+
+        }
+    */
+    private JTextArea textArea = new JTextArea(); // Поле класу для JTextArea
+    private JScrollPane scrollableTextArea = new JScrollPane(textArea);
+
+    public void productAdded(Product product, int numberAdded) {
         textArea.append("Було додано продукт '" + product.getName() + "' у кількості " + numberAdded + "\n");
         textArea.setCaretPosition(textArea.getDocument().getLength()); // Автоматична прокрутка до нижнього кінця
     }
 
-    public  void productBought(Product product, int numberBought) {
+    public void productBought(Product product, int numberBought) {
         textArea.append("Було куплено продукт '" + product.getName() + "' у кількості " + numberBought + "\n");
         textArea.setCaretPosition(textArea.getDocument().getLength()); // Автоматична прокрутка до нижнього кінця
     }
 
-    public  void groupAdded(ProductGroup productGroup) {
+    public void groupAdded(ProductGroup productGroup) {
         textArea.append("Було додано групу '" + productGroup.getName() + "' \n");
         textArea.setCaretPosition(textArea.getDocument().getLength()); // Автоматична прокрутка до нижнього кінця
     }
 
-    public  void groupDeleted(ProductGroup productGroup) {
+    public void groupDeleted(ProductGroup productGroup) {
         textArea.append("Було видалено групу '" + productGroup.getName() + "' \n");
         textArea.setCaretPosition(textArea.getDocument().getLength()); // Автоматична прокрутка до нижнього кінця
     }
 
     // Метод для отримання JTextArea із скроллерами
-    public  JScrollPane getScrollPane() {
+    public JScrollPane getScrollPane() {
         scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         return scrollableTextArea;

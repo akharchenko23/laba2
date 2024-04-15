@@ -7,7 +7,8 @@ import java.awt.*;
 public class AddGroupDialog extends JFrame {
 
     private static final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-    private static final Font defaultFont = new Font("Arial", Font.PLAIN, 24);
+    private static final Font defaultFont = new Font("Arial", Font.PLAIN, 20);
+    private static final JLabel nameWarning = new JLabel();
 
     public AddGroupDialog() {
         super("Створіть групу");
@@ -27,7 +28,7 @@ public class AddGroupDialog extends JFrame {
 
         this.add(new JPanel(), c);
 
-        JLabel nameWarning = new JLabel();
+
         nameWarning.setForeground(Color.RED);
         nameWarning.setFont(defaultFont);
         nameWarning.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -93,19 +94,31 @@ public class AddGroupDialog extends JFrame {
 
             if (name.isEmpty()) {
                 nameWarning.setText("Введіть ім'я!");
+            } else {
+                nameWarning.setText("");
             }
 
             if (desc.isEmpty()) {
-
                 descWarning.setText("Введіть опис!");
+            } else {
+                nameWarning.setText("");
             }
+
+
 
             if (!name.isEmpty() && !desc.isEmpty()) {
                 nameWarning.setText("");
                 descWarning.setText("");
-                WareHouseWindow.storage.addProductGroup(new ProductGroup(name, desc));
-                WareHouseWindow.updateTreePanel();
-                this.dispose();
+                ProductGroup productGroup = new ProductGroup(name, desc);
+                try {
+                    WareHouseWindow.storage.addProductGroup(productGroup);
+                    WareHouseWindow.updateTreePanel();
+                    WareHouseWindow.console.groupAdded(productGroup);
+                    this.dispose();
+                } catch (Exception ex) {
+                    nameWarning.setText("Група з такою назвою вже існує!");
+                }
+
             }
         });
     }

@@ -31,6 +31,7 @@ public class RemoveGroupDialog extends JFrame {
                 WareHouseWindow.storage.deleteProductGroup(deleteGroup);
                 comboBox.removeItem(deleteGroup);
                 WareHouseWindow.updateTreePanel();
+                WareHouseWindow.console.groupDeleted(deleteGroup);
             }
             if (WareHouseWindow.storage.getListOfProductGroups().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Схоже що склад порожній...");
