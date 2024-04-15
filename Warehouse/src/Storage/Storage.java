@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class Storage implements Serializable {
     private ArrayList<ProductGroup> listOfProductGroups = new ArrayList<>();
-   // private ArrayList<Product> allProducts;
+    // private ArrayList<Product> allProducts;
     private String name;
 
 
@@ -18,11 +18,10 @@ public class Storage implements Serializable {
     }
 
 
-
     public Storage(String name) {
         this.name = name;
         //this.listOfProductGroups = listOfProductGroups;
-       // this.allProducts = allProducts;
+        // this.allProducts = allProducts;
     }
 
     public void setName(String name) {
@@ -54,6 +53,14 @@ public class Storage implements Serializable {
         return name + " " + listOfProductGroups;
     }
 
+    public double priceOfAllProductsOnStorage() {
+        double price = 0;
+        for (ProductGroup productGroup : listOfProductGroups) {
+            price += productGroup.priceOfAllProductsInAGroup();
+        }
+        return price;
+    }
+
     public void deleteProductGroup(ProductGroup productGroup) {
         if (listOfProductGroups.contains(productGroup)) {
             listOfProductGroups.remove(productGroup);
@@ -66,7 +73,7 @@ public class Storage implements Serializable {
 
     public void addProductGroup(ProductGroup productGroup) {
         listOfProductGroups.add(productGroup);
-       // allProducts.addAll(productGroup.getListOfProducts());
+        // allProducts.addAll(productGroup.getListOfProducts());
     }
 
     public Product searchForProduct(Product product) {

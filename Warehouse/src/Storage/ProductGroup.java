@@ -73,6 +73,14 @@ public class ProductGroup implements Serializable {
         return name;
     }
 
+    public double priceOfAllProductsInAGroup(){
+        double price = 0;
+        for(Product product : listOfProducts){
+            price += product.getPrice();
+        }
+        return price;
+    }
+
     public void deleteProduct(Product product) {
         if (listOfProducts.contains(product)) {
             listOfProducts.remove(product);
@@ -82,10 +90,26 @@ public class ProductGroup implements Serializable {
     }
 
     public void addProduct(Product product) {
+        boolean productExists = false;
+
+        for(Product pr: listOfProducts){
+            if(pr.getName().equals(product.getName())){
+                productExists = true;
+                //System.out.println("the same");
+                //todo exception
+                break;
+            }
+        }
+        // If the product doesn't exist, add it to the list
+        if (!productExists) {
+            listOfProducts.add(product);
+            //System.out.println("Product added successfully.");
+        }
+        //listOfProducts.add(product);
 
         //   for (Product pr : listOfProducts) {
 //                if (!pr.getName().equals(product.getName())) {
-                    listOfProducts.add(product);
+
                 //}
             //}
       //  } else {
