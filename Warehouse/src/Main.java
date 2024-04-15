@@ -36,6 +36,7 @@ public class Main {
         }
         System.out.println(productGroup1.priceOfAllProductsInAGroup() + " " + storage.priceOfAllProductsOnStorage());
 
+        System.out.println(storage.productExistsInStorage(pr1));
        // productGroup1.getListOfProducts().add(pr1);
 
         //System.out.println(productGroup1);

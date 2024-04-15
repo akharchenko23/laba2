@@ -58,6 +58,10 @@ public class Storage implements Serializable {
         for (ProductGroup productGroup : listOfProductGroups) {
             for (Product pr : productGroup.getListOfProducts()) {
                 //ім'я чекаєм
+                if(pr.getName().equals(product.getName())){
+                    return true;
+
+                }
             }
         }
         return false;
