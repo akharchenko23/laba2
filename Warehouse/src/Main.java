@@ -11,7 +11,7 @@ public class Main {
        ArrayList<Product> productArrayList = new ArrayList<>();
         ArrayList<ProductGroup> productGroupArrayList = new ArrayList<>();
        // ArrayList<Product> allProducts = new ArrayList<>();
-        Product pr1 = new Product("nae", "desc", "pr", 1, 1);
+        Product pr1 = new Product("nae", "desc", "pr", 3, 1);
         Product pr2 = new Product("name", "desc2", "pr2", 2, 2);
         Product pr3 = new Product("namRe", "desc3", "pr3", 2, 2);
         ProductGroup productGroup1 = new ProductGroup("namePG1", "descPG1");

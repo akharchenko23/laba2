@@ -75,7 +75,7 @@ public class ProductGroup implements Serializable {
     public double priceOfAllProductsInAGroup(){
         double price = 0;
         for(Product product : listOfProducts){
-            price += product.getPrice();
+            price += product.getPrice()*product.getNumber();
         }
         return price;
     }
