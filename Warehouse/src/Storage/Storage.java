@@ -96,15 +96,7 @@ public class Storage implements Serializable {
             name = name.replaceAll("\\*", ".*").replaceAll("\\?", ".{1}");
 
             Pattern regex = Pattern.compile(name);
-            //System.out.println("скільки воно сюди приходить ");
 
-            // Шукаємо відповідності для кожного слова в списку
-            //for (ProductGroup productGroup : listOfProductGroups) {
-//            ArrayList<Product> allProducts = new ArrayList<>();
-//            for (ProductGroup productGroup : listOfProductGroups) {
-            // System.out.println("pr gr "+productGroup);
-            // }
-            //System.out.println(allProducts);
             for (ProductGroup productGroup : listOfProductGroups) {
                 for (Product product : productGroup.getListOfProducts()) {
                     Matcher matcher = regex.matcher(product.getName());
@@ -124,7 +116,7 @@ public class Storage implements Serializable {
             for (Product product : productGroup.getListOfProducts()) {
                 if (product.getName().equals(name)) {
                     omg.add(product);
-                    System.out.println("не все так погано");
+                   // System.out.println("не все так погано");
                 }
             }
         }

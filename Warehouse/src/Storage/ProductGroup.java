@@ -1,6 +1,5 @@
 package Storage;
 
-import Exceptions.Exceptions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -81,23 +80,26 @@ public class ProductGroup implements Serializable {
         return price;
     }
 
-    public void deleteProduct(Product product) {
+    public void deleteProduct(Product product)  {
         if (listOfProducts.contains(product)) {
             listOfProducts.remove(product);
         } else {
-            //todo throw exception
+            //todo exception
+
+            // throw new ProductNotFoundException("Product not found: " + product.getName());
         }
     }
 
-    public void addProduct(Product product) {
+    public void addProduct(Product product)  {
         boolean productExists = false;
 
         for(Product pr: listOfProducts){
             if(pr.getName().equals(product.getName())){
                 productExists = true;
                 //System.out.println("the same");
+               // throw new ProductExistsException("Product already exists: " + product.getName());
                 //todo exception
-                break;
+                //break;
             }
         }
         // If the product doesn't exist, add it to the list

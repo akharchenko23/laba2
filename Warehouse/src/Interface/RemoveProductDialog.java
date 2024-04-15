@@ -62,7 +62,11 @@ public class RemoveProductDialog extends JFrame {
                 int fate = JOptionPane.showConfirmDialog(null, "Цей товар буде видалено!");
                 if (fate == JOptionPane.YES_OPTION) {
                     Product prod = (Product)RemoveProductDialog.prodBox.getSelectedItem();
-                    selectedGroup.deleteProduct(prod);
+                   // try {
+                        selectedGroup.deleteProduct(prod);
+                   // } catch (ProductNotFoundException ex) {
+                      //  throw new RuntimeException(ex);
+                  //  }
                     RemoveProductDialog.prodBox.removeItem(prod);
                     WareHouseWindow.updateTreePanel();
                 }
