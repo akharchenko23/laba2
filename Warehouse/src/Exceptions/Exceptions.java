@@ -1,15 +1,25 @@
 package Exceptions;
 
 public class Exceptions {
-//ексепшин для випадків коли видаляєм те, чого не існує
-    public static class DataNotFoundException extends Exception {
-        public DataNotFoundException(String message) {
+//ексепшини для випадків коли видаляєм те, чого не існує
+    public static class ProductNotFoundException extends Exception {
+        public ProductNotFoundException(String message) {
             super(message);
         }
     }
-//ексепшин для випадків, коли додаємо те, що вже існує
-    public static class DataAlreadyExistsException extends Exception {
-        public DataAlreadyExistsException(String message) {
+    public static class GroupNotFoundException extends Exception {
+        public GroupNotFoundException(String message) {
+            super(message);
+        }
+    }
+//ексепшини для випадків, коли додаємо те, що вже існує
+    public static class ProductAlreadyExistsException extends Exception {
+        public ProductAlreadyExistsException(String message) {
+            super(message);
+        }
+    }
+    public static class GroupAlreadyExistsException extends Exception {
+        public GroupAlreadyExistsException(String message) {
             super(message);
         }
     }
