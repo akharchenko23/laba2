@@ -37,31 +37,31 @@ public class JConsole extends JScrollPane {
 
     }
 */
-    private static JTextArea textArea = new JTextArea(10, 40); // Поле класу для JTextArea
-    private static JScrollPane scrollableTextArea = new JScrollPane(textArea);
+    private  JTextArea textArea = new JTextArea(10, 40); // Поле класу для JTextArea
+    private  JScrollPane scrollableTextArea = new JScrollPane(textArea);
 
-    public static void productAdded(Product product, int numberAdded) {
+    public  void productAdded(Product product, int numberAdded) {
         textArea.append("Було додано продукт '" + product.getName() + "' у кількості " + numberAdded + "\n");
         textArea.setCaretPosition(textArea.getDocument().getLength()); // Автоматична прокрутка до нижнього кінця
     }
 
-    public static void productBought(Product product, int numberBought) {
+    public  void productBought(Product product, int numberBought) {
         textArea.append("Було куплено продукт '" + product.getName() + "' у кількості " + numberBought + "\n");
         textArea.setCaretPosition(textArea.getDocument().getLength()); // Автоматична прокрутка до нижнього кінця
     }
 
-    public static void groupAdded(ProductGroup productGroup) {
+    public  void groupAdded(ProductGroup productGroup) {
         textArea.append("Було додано групу '" + productGroup.getName() + "' \n");
         textArea.setCaretPosition(textArea.getDocument().getLength()); // Автоматична прокрутка до нижнього кінця
     }
 
-    public static void groupDeleted(ProductGroup productGroup) {
+    public  void groupDeleted(ProductGroup productGroup) {
         textArea.append("Було видалено групу '" + productGroup.getName() + "' \n");
         textArea.setCaretPosition(textArea.getDocument().getLength()); // Автоматична прокрутка до нижнього кінця
     }
 
     // Метод для отримання JTextArea із скроллерами
-    public static JScrollPane getScrollPane() {
+    public  JScrollPane getScrollPane() {
         scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         return scrollableTextArea;
