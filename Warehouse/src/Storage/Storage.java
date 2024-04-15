@@ -53,6 +53,16 @@ public class Storage implements Serializable {
         return name + " " + listOfProductGroups;
     }
 
+
+    public boolean productExistsInStorage(Product product){
+        for (ProductGroup productGroup : listOfProductGroups) {
+            for (Product pr : productGroup.getListOfProducts()) {
+                //ім'я чекаєм
+            }
+        }
+        return false;
+    }
+
     public double priceOfAllProductsOnStorage() {
         double price = 0;
         for (ProductGroup productGroup : listOfProductGroups) {
@@ -76,6 +86,7 @@ public class Storage implements Serializable {
         // allProducts.addAll(productGroup.getListOfProducts());
     }
 
+    //один бог знає на біса це треба
     public Product searchForProduct(Product product) {
         for (ProductGroup productGroup : listOfProductGroups) {
             return productGroup.getProduct(product);
