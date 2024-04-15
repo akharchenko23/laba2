@@ -10,8 +10,8 @@ public class Main {
        ArrayList<Product> productArrayList = new ArrayList<>();
         ArrayList<ProductGroup> productGroupArrayList = new ArrayList<>();
        // ArrayList<Product> allProducts = new ArrayList<>();
-        Product pr1 = new Product("nae", "desc", "pr", 3, 1);
-        Product pr2 = new Product("name", "desc2", "pr2", 2, 2);
+        Product pr1 = new Product("nane", "desc", "pr", 3, 1);
+        Product pr2 = new Product("nae", "desc2", "pr2", 2, 2);
         Product pr3 = new Product("namRe", "desc3", "pr3", 2, 2);
         ProductGroup productGroup1 = new ProductGroup("namePG1", "descPG1");
         ProductGroup productGroup2 = new ProductGroup("namePG2", "descPG2");
@@ -28,6 +28,8 @@ public class Main {
      storage.addProductGroup(productGroup1);
      storage.addProductGroup(productGroup3);
      storage.addProductGroup(productGroup2);
+
+
 
 for(ProductGroup productGroup: storage.getListOfProductGroups()){
     System.out.println(productGroup);

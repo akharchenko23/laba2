@@ -94,12 +94,25 @@ public class Storage implements Serializable {
     }
 
     public void addProductGroup(ProductGroup productGroup) {
+        boolean productGrExists = false;
+        for (ProductGroup prGr : listOfProductGroups) {
+            if(prGr.getName().equals(productGroup.getName())) {
+                productGrExists = true;
+                //todo exception
+            }
+        }
+        if (!productGrExists) {
+            listOfProductGroups.add(productGroup);
+        }
+        /*
         if (!listOfProductGroups.contains(productGroup)) {
             listOfProductGroups.add(productGroup);
         } else {
-            //todo exception
+
         }
         // allProducts.addAll(productGroup.getListOfProducts());
+
+         */
     }
 
     //один бог знає на біса це треба
