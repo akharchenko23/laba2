@@ -2,6 +2,7 @@ package Interface;
 
 import Storage.Product;
 import Storage.ProductGroup;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,7 +15,7 @@ public class AddProductDialog extends JFrame {
     private static final Font defaultFont = new Font("Arial", Font.PLAIN, 18);
     private static final Font miniFont = new Font("Arial", Font.PLAIN, 14);
 
-    public AddProductDialog(){
+    public AddProductDialog() {
         super("Новий товар");
         this.setLocation(screen.width / 2 - width / 2, screen.height / 2 - height / 2);
         this.setSize(width, height);
@@ -77,7 +78,7 @@ public class AddProductDialog extends JFrame {
         numberField.setModel(new SpinnerNumberModel(1, 0, 1000000, 1));
 
         JComponent editor1 = numberField.getEditor();
-        JSpinner.DefaultEditor spinnerEditor1 = (JSpinner.DefaultEditor)editor1;
+        JSpinner.DefaultEditor spinnerEditor1 = (JSpinner.DefaultEditor) editor1;
         spinnerEditor1.getTextField().setHorizontalAlignment(JTextField.LEFT);
 
         numberField.setBounds(120, 160, width / 2 - 140, 20);
@@ -93,7 +94,7 @@ public class AddProductDialog extends JFrame {
         valueField.setModel(new SpinnerNumberModel(1, 0, 1000000, 1));
 
         JComponent editor2 = valueField.getEditor();
-        JSpinner.DefaultEditor spinnerEditor2 = (JSpinner.DefaultEditor)editor2;
+        JSpinner.DefaultEditor spinnerEditor2 = (JSpinner.DefaultEditor) editor2;
         spinnerEditor2.getTextField().setHorizontalAlignment(JTextField.LEFT);
 
         valueField.setBounds(width / 2 + 110, 160, width / 2 - 140, 20);
@@ -112,10 +113,10 @@ public class AddProductDialog extends JFrame {
             String productDesc = descField.getText().trim();
             String productProd = prodField.getText().trim();
             ProductGroup productGroup = (ProductGroup) groupField.getSelectedItem();
-            int productNumber = (int)numberField.getValue();
-            int productValue = (int)valueField.getValue();
+            int productNumber = (int) numberField.getValue();
+            int productValue = (int) valueField.getValue();
 
-            if(!productName.matches("[A-Za-zА-Яа-яІіЇїҐґЄє_ 0-9-]+")){
+            if (!productName.matches("[A-Za-zА-Яа-яІіЇїҐґЄє_ 0-9-]+")) {
                 nameWarning.setText("Назва має складатись лише з літер, цифр, пробілів, _ і тире!");
                 nameWarning.setFont(new Font("Arial", Font.PLAIN, 16));
                 nameWarning.setForeground(Color.RED);
@@ -125,26 +126,26 @@ public class AddProductDialog extends JFrame {
                 nameWarning.setForeground(Color.black);
             }
 
-            if(productDesc.isEmpty()){
+            if (productDesc.isEmpty()) {
                 desc.setForeground(Color.RED);
             } else {
                 desc.setForeground(Color.black);
             }
 
-            if(productProd.isEmpty()){
+            if (productProd.isEmpty()) {
                 prod.setForeground(Color.RED);
             } else {
                 prod.setForeground(Color.black);
             }
 
-            if(WareHouseWindow.storage.productExistsInStorageByName(productName)){
+            if (WareHouseWindow.storage.productExistsInStorageByName(productName)) {
                 nameWarning.setText("Товар з такою назвою вже існує!");
                 nameWarning.setForeground(Color.RED);
             }
 
-            if(!productDesc.isEmpty() && !productProd.isEmpty() && !WareHouseWindow.storage.productExistsInStorageByName(productName) && productName.matches("[A-Za-zА-Яа-яІіЇїҐґЄє_ 0-9-]+")){
+            if (!productDesc.isEmpty() && !productProd.isEmpty() && !WareHouseWindow.storage.productExistsInStorageByName(productName) && productName.matches("[A-Za-zА-Яа-яІіЇїҐґЄє_ 0-9-]+")) {
                 if (productGroup != null) {
-                    Product product = new Product(productName,productDesc,productProd, productNumber, productValue);
+                    Product product = new Product(productName, productDesc, productProd, productNumber, productValue);
                     productGroup.addProduct(product);
                     WareHouseWindow.updateTreePanel();
                     WareHouseWindow.console.productAdded(product, productNumber);

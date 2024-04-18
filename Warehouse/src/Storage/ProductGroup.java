@@ -72,15 +72,15 @@ public class ProductGroup implements Serializable {
         return name;
     }
 
-    public double priceOfAllProductsInAGroup(){
+    public double priceOfAllProductsInAGroup() {
         double price = 0;
-        for(Product product : listOfProducts){
-            price += product.getPrice()*product.getNumber();
+        for (Product product : listOfProducts) {
+            price += product.getPrice() * product.getNumber();
         }
         return price;
     }
 
-    public void deleteProduct(Product product)  {
+    public void deleteProduct(Product product) {
         if (listOfProducts.contains(product)) {
             listOfProducts.remove(product);
         } else {
@@ -90,14 +90,14 @@ public class ProductGroup implements Serializable {
         }
     }
 
-    public void addProduct(Product product)  {
+    public void addProduct(Product product) {
         boolean productExists = false;
 
-        for(Product pr: listOfProducts){
-            if(pr.getName().equals(product.getName())){
+        for (Product pr : listOfProducts) {
+            if (pr.getName().equals(product.getName())) {
                 productExists = true;
                 //System.out.println("the same");
-               // throw new ProductExistsException("Product already exists: " + product.getName());
+                // throw new ProductExistsException("Product already exists: " + product.getName());
                 //todo exception
                 //break;
             }
@@ -112,33 +112,41 @@ public class ProductGroup implements Serializable {
         //   for (Product pr : listOfProducts) {
 //                if (!pr.getName().equals(product.getName())) {
 
-                //}
-            //}
-      //  } else {
-           // System.out.println("не додавайте одне і те ж");
-            //todo throw exception
-       // }
+        //}
+        //}
+        //  } else {
+        // System.out.println("не додавайте одне і те ж");
+        //todo throw exception
+        // }
     }
 
     /**
      * Це мені треба для інтерфейсу. Специфічна фігня
+     *
      * @return Штука для таблиці
      */
-    public String[][] getProductsAsString(){
+    public String[][] getProductsAsString(boolean includeGroup) {
         ArrayList<ArrayList<String>> res = new ArrayList<>();
-        for(Product product : listOfProducts){
+        for (Product product : listOfProducts) {
             ArrayList<String> row = new ArrayList<>();
             row.add(product.getName());
             row.add(product.getDescription());
             row.add(product.getProducer());
-            row.add(this.name);
+            if (includeGroup) {
+                row.add(this.name);
+            }
             row.add(String.valueOf(product.getNumber()));
             row.add(Double.toString(product.getPrice()));
             res.add(row);
         }
-        String[][] actualRes = new String[res.size()][6];
+        String[][] actualRes;
+        if (includeGroup) {
+            actualRes = new String[res.size()][6];
+        } else {
+            actualRes = new String[res.size()][5];
+        }
         int i = 0;
-        for(ArrayList<String> temp : res){
+        for (ArrayList<String> temp : res) {
             actualRes[i] = temp.toArray(new String[0]);
             i++;
         }

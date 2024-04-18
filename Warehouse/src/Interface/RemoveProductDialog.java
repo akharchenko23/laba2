@@ -65,7 +65,7 @@ public class RemoveProductDialog extends JFrame {
                     selectedGroup.deleteProduct(prod);
                     RemoveProductDialog.prodBox.removeItem(prod);
                     WareHouseWindow.updateTreePanel();
-                    WareHouseWindow.console.productBought(prod,prod.getNumber());
+                    WareHouseWindow.console.productBought(prod, prod.getNumber());
                 }
             }
 

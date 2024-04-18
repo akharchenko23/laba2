@@ -96,7 +96,7 @@ public class Storage implements Serializable {
     public void addProductGroup(ProductGroup productGroup) throws Exception {
         boolean productGrExists = false;
         for (ProductGroup prGr : listOfProductGroups) {
-            if(prGr.getName().equals(productGroup.getName())) {
+            if (prGr.getName().equals(productGroup.getName())) {
                 productGrExists = true;
                 throw new Exception();
             }

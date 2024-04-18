@@ -1,6 +1,7 @@
 package Interface;
 
 import Storage.*;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -103,7 +104,6 @@ public class AddGroupDialog extends JFrame {
             } else {
                 nameWarning.setText("");
             }
-
 
 
             if (!name.isEmpty() && !desc.isEmpty()) {
