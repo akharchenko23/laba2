@@ -256,13 +256,22 @@ public class WareHouseWindow extends JFrame {
     private static void createGroupInfo(ProductGroup group) {
         JTextArea name = new JTextArea(group.getName());
         name.setFont(new Font("Arial", Font.BOLD, 34));
-        name.setBounds(10, 10, 600, 45);
         name.setBackground(Color.LIGHT_GRAY);
-        infoPanel.add(name);
+        JScrollPane nameScrollPane = new JScrollPane(name);
+        nameScrollPane.setBounds(10, 10, 600, 55);
+        infoPanel.add(nameScrollPane);
+
+        JTextArea desc = new JTextArea(group.getDescription());
+        desc.setFont(new Font("Arial", Font.PLAIN, 24));
+        desc.setBackground(Color.LIGHT_GRAY);
+        JScrollPane descPane = new JScrollPane(desc);
+        descPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        descPane.setBounds(10, 75, 600, 45);
+        infoPanel.add(descPane);
 
         JLabel value = new JLabel("Загальна вартість групи: " + group.priceOfAllProductsInAGroup() + " грн.");
         value.setFont(new Font("Arial", Font.PLAIN, 24));
-        value.setBounds(10, 60, 600, 30);
+        value.setBounds(10, 125, 600, 30);
         infoPanel.add(value);
 
         int numOfProds = group.getListOfProducts().size();
@@ -281,7 +290,7 @@ public class WareHouseWindow extends JFrame {
         };
         table.setCellSelectionEnabled(false);
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setBounds(10, 100, 600, 200);
+        scroll.setBounds(10, 165, 600, 140);
         infoPanel.add(scroll);
 
         JButton saveButton = new JButton("Зберегти");
@@ -324,7 +333,7 @@ public class WareHouseWindow extends JFrame {
                 i++;
             }
         }
-        String[] categories = {"Товар", "Опис","Виробник",  "Група", "К-ть", "Ціна"};
+        String[] categories = {"Товар",  "Виробник",  "Група", "К-ть", "Ціна"};
         JTable table = new JTable(items, categories) {
             @Override
             public boolean isCellEditable(int row, int column) {
