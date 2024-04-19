@@ -1,8 +1,13 @@
+import Interface.JConsole;
 import Interface.WareHouseWindow;
 import Storage.Product;
 import Storage.ProductGroup;
 import Storage.Storage;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class Main {
@@ -52,7 +57,17 @@ public class Main {
 
         WareHouseWindow start = new WareHouseWindow();
         start.setVisible(true);
-
+        /*try {
+            System.setOut(new PrintStream(new OutputStream() {
+                @Override
+                public void write(int b) throws IOException {
+                    WareHouseWindow.console.textArea.append(String.valueOf(((char) b)));
+                }
+            }, true, "windows-1251"));
+        } catch (UnsupportedEncodingException e) {
+            //ignore
+        }
+        System.out.println("Привітик!");*/
 
     }
 }

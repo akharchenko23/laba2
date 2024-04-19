@@ -46,16 +46,16 @@ public class JConsole extends JScrollPane {
 
         }
     */
-    private JTextArea textArea = new JTextArea(); // Поле класу для JTextArea
+    public JTextArea textArea = new JTextArea(); // Поле класу для JTextArea
     private JScrollPane scrollableTextArea = new JScrollPane(textArea);
 
     public void productAdded(Product product, int numberAdded) {
-        textArea.append("Було додано продукт '" + product.getName() + "' у кількості " + numberAdded + "\n");
+        textArea.append("Було додано товару '" + product.getName() + "' у кількості " + numberAdded + "\n");
         textArea.setCaretPosition(textArea.getDocument().getLength()); // Автоматична прокрутка до нижнього кінця
     }
 
     public void productBought(Product product, int numberBought) {
-        textArea.append("Було куплено продукт '" + product.getName() + "' у кількості " + numberBought + "\n");
+        textArea.append("Було куплено товару '" + product.getName() + "' у кількості " + numberBought + "\n");
         textArea.setCaretPosition(textArea.getDocument().getLength()); // Автоматична прокрутка до нижнього кінця
     }
 

@@ -13,7 +13,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.HashSet;
-import java.util.Objects;
 
 /**
  * Creates a window with full functionality of a warehouse
@@ -33,7 +32,7 @@ public class WareHouseWindow extends JFrame {
     private static final GridBagConstraints c = new GridBagConstraints();
 
     static Storage storage;
-    static JConsole console = new JConsole();
+    public static JConsole console = new JConsole();
 
     public WareHouseWindow() {
         super(title);
@@ -136,7 +135,7 @@ public class WareHouseWindow extends JFrame {
         createGroupInfo(group);
     }
 
-    private static void updateProductInfo(Product product){
+    private static void updateProductInfo(Product product) {
         infoPanel.removeAll();
         infoPanel.revalidate();
         infoPanel.repaint();
@@ -185,7 +184,7 @@ public class WareHouseWindow extends JFrame {
         numText.setBounds(170, 175, 135, 35);
 
         JComponent editor2 = numText.getEditor();
-        JSpinner.DefaultEditor spinnerEditor2 = (JSpinner.DefaultEditor)editor2;
+        JSpinner.DefaultEditor spinnerEditor2 = (JSpinner.DefaultEditor) editor2;
         spinnerEditor2.getTextField().setHorizontalAlignment(JTextField.LEFT);
 
         infoPanel.add(numText);
@@ -196,13 +195,13 @@ public class WareHouseWindow extends JFrame {
         infoPanel.add(value);
 
         JSpinner valueText = new JSpinner(new SpinnerNumberModel(1, 0, 1000000, 1));
-        valueText.setValue(((Double)product.getPrice()).intValue());
+        valueText.setValue(((Double) product.getPrice()).intValue());
         valueText.setFont(new Font("Arial", Font.PLAIN, 24));
         valueText.setBackground(Color.LIGHT_GRAY);
         valueText.setBounds(475, 175, 135, 35);
 
         JComponent editor3 = valueText.getEditor();
-        JSpinner.DefaultEditor spinnerEditor3 = (JSpinner.DefaultEditor)editor3;
+        JSpinner.DefaultEditor spinnerEditor3 = (JSpinner.DefaultEditor) editor3;
         spinnerEditor3.getTextField().setHorizontalAlignment(JTextField.LEFT);
 
         infoPanel.add(valueText);
@@ -217,36 +216,36 @@ public class WareHouseWindow extends JFrame {
             String productName = name.getText().trim();
             String productDesc = desc.getText().trim();
             String productProd = prodText.getText().trim();
-            int productNumber = (int)numText.getValue();
-            double productValue = ((Integer)valueText.getValue()).doubleValue();
+            int productNumber = (int) numText.getValue();
+            double productValue = ((Integer) valueText.getValue()).doubleValue();
 
-            if(productName.equals(product.getName()) && productDesc.equals(product.getDescription()) && productProd.equals(product.getProducer()) && productNumber == product.getNumber() && productValue == product.getPrice()){
+            if (productName.equals(product.getName()) && productDesc.equals(product.getDescription()) && productProd.equals(product.getProducer()) && productNumber == product.getNumber() && productValue == product.getPrice()) {
                 JOptionPane.showMessageDialog(null, "Відредагуйте товар перед тим як зберігати зміни :)", "Зміни не було внесено", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
 
-            if(!productName.matches("[A-Za-zА-Яа-яІіЇїҐґЄє_ 0-9-]+")){
+            if (!productName.matches("[A-Za-zА-Яа-яІіЇїҐґЄє_ 0-9-]+")) {
                 JOptionPane.showMessageDialog(null, "Назва товару має складатись лише з літер, цифр, пробілів, _ і тире!", "Некоректна назва", JOptionPane.INFORMATION_MESSAGE);
             }
 
-            if(productDesc.isEmpty()){
+            if (productDesc.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Заповніть опис товару!", "Порожній опис", JOptionPane.INFORMATION_MESSAGE);
             }
 
-            if(productProd.isEmpty()){
+            if (productProd.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Вкажіть виробника!", "Відсутній виробник", JOptionPane.INFORMATION_MESSAGE);
             }
 
-            if (storage.productExistsInStorageByName(productName) && !productName.equals(product.getName())){
+            if (storage.productExistsInStorageByName(productName) && !productName.equals(product.getName())) {
                 JOptionPane.showMessageDialog(null, "Товар з такою назвою вже існує!", "некоректна назва", JOptionPane.INFORMATION_MESSAGE);
             }
 
-            if(!productDesc.isEmpty() && !productProd.isEmpty() && productName.matches("[A-Za-zА-Яа-яІіЇїҐґЄє_ 0-9-]+") && (!storage.productExistsInStorageByName(productName) || productName.equals(product.getName()))){
-                    product.setDescription(productDesc);
-                    product.setNumber(productNumber);
-                    product.setPrice(productValue);
-                    product.setProducer(productProd);
-                    product.setName(productName);
+            if (!productDesc.isEmpty() && !productProd.isEmpty() && productName.matches("[A-Za-zА-Яа-яІіЇїҐґЄє_ 0-9-]+") && (!storage.productExistsInStorageByName(productName) || productName.equals(product.getName()))) {
+                product.setDescription(productDesc);
+                product.setNumber(productNumber);
+                product.setPrice(productValue);
+                product.setProducer(productProd);
+                product.setName(productName);
                 updateTreePanel();
             }
         });
@@ -273,7 +272,7 @@ public class WareHouseWindow extends JFrame {
             items[i] = smth;
             i++;
         }
-        String[] categories = {"Товар", "Виробник", "Опис", "К-ть", "Ціна"};
+        String[] categories = {"Товар", "Опис", "Виробник", "К-ть", "Ціна"};
         JTable table = new JTable(items, categories) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -325,7 +324,7 @@ public class WareHouseWindow extends JFrame {
                 i++;
             }
         }
-        String[] categories = {"Товар", "Виробник", "Опис", "Група", "К-ть", "Ціна"};
+        String[] categories = {"Товар", "Опис","Виробник",  "Група", "К-ть", "Ціна"};
         JTable table = new JTable(items, categories) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -544,8 +543,43 @@ public class WareHouseWindow extends JFrame {
             ObjectOutputStream bw = new ObjectOutputStream(new FileOutputStream(saveFile));
             bw.writeObject(storage);
             bw.close();
+            saveFiles();
         } catch (IOException ex) {
             System.out.println("Виникла проблема під час збереження!");
+        }
+    }
+
+    private void saveFiles() {
+        String warehouse = "Warehouse.txt";
+        File saveWarehouse = new File(warehouse);
+        try {
+            if (!saveWarehouse.createNewFile()) {
+                new FileOutputStream(warehouse).close();
+            }
+            BufferedWriter bw = new BufferedWriter(new FileWriter(saveWarehouse));
+            bw.write(storage.getName());
+            bw.newLine();
+            for (ProductGroup pg : storage.getListOfProductGroups()) {
+                bw.write(pg.getName());
+                bw.write(": ");
+                bw.write(pg.getDescription());
+                bw.newLine();
+                for (Product p : pg.getListOfProducts()) {
+                    bw.write("  " + p.getName() + ": ");
+                    bw.newLine();
+                    bw.write("    Опис: " + p.getDescription());
+                    bw.newLine();
+                    bw.write("    Виробник: " + p.getProducer());
+                    bw.newLine();
+                    bw.write("    Кількість: " + String.valueOf(p.getNumber()));
+                    bw.newLine();
+                    bw.write("    Ціна: " + String.valueOf(p.getPrice()));
+                    bw.newLine();
+                }
+            }
+            bw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
